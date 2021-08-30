@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username','name', 'email','avater', 'password',
     ];
 
     /**
@@ -51,6 +51,16 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function setAvatarAttribute($value)
+    {
+        $this->attributes['avatar'] = asset('storage/'.$value);
+    }
+
+    public function getAvatarAttribute($value)
+    {
+        return asset($value);
     }
 
     public function userHasRole($role_name)
